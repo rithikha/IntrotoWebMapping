@@ -60,7 +60,15 @@
         // meteorite (https://en.wikipedia.org/wiki/Hoba_meteorite)
         let size = meteorites.getString(i, 'mass (g)');
         size = map(size, 558, 60000000, 1, 25) + myMap.zoom();
-        stroke(200, 100, 100)
+        if (2000 >= size >= 0) {
+          stroke(150, 80, 80)
+        }
+        else if (4000 >= size > 2000){
+          stroke(190, 100, 100)
+        }
+        else {
+          stroke(255, 90, 90)
+        }
         noFill()
         rect(pos.x, pos.y, size, size);
       }
