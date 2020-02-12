@@ -9,6 +9,7 @@
 
 <body>
   <script>
+
   let myMap;
   let canvas;
   const mappa = new Mappa('Leaflet');
@@ -17,7 +18,7 @@
   const options = {
     lat: 49.2606,
     lng: -123.2460 ,
-    zoom: 3,
+    zoom: 2,
     style: "https://map1.vis.earthdata.nasa.gov/wmts-webmerc/VIIRS_CityLights_2012/default/''/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpg"
   }
 
@@ -37,6 +38,15 @@
   }
 
   function draw(){
+    stroke(255, 255, 255)
+    text('METEOR MASS', 10, 100);
+
+    stroke(255, 204, 255);
+    text('0 - 20,000,000g', 10, 130);
+    stroke (255, 102, 255);
+    text('20,000,000 - 40,000,000g', 10, 145);
+    stroke (255, 0, 127);
+    text('40,000,000 - 60,000,000g', 10, 160);
   }
 
   // Draw the meteorites
@@ -59,17 +69,20 @@
         // Get the size of the meteorite and map it. 60000000 is the mass of the largest
         // meteorite (https://en.wikipedia.org/wiki/Hoba_meteorite)
         let size = meteorites.getString(i, 'mass (g)');
+        let mass_str = meteorites.getString(i, 'mass (g)');
+        let mass_int = parseInt(mass_str);
         size = map(size, 558, 60000000, 1, 25) + myMap.zoom();
-        if (2000 >= size >= 0) {
-          stroke(0, 255, 0)
-        }
-        else if (4000 >= size > 2000){
-          stroke(0, 0, 255)
-        }
-        else {
-          stroke(255, 0, 0)
-        }
-        noFill()
+
+        if (20000000 >= mass_int && mass_int >= 0) {
+            stroke(255, 204, 255);
+          }
+          else if (40000000 >= mass_int && mass_int > 20000000) {
+            stroke (255, 102, 255);
+          }
+          else {
+            stroke (255, 0, 127);
+          }
+        noFill();
         rect(pos.x, pos.y, size, size);
       }
     }
